@@ -8,31 +8,27 @@ class Bottles
   end
 
   def verse(number)
-
     bottle_number = BottleNumber.for(number)
     next_bottle_number = bottle_number.successor()
-
     <<~VERSE
       #{ bottle_number.to_s.capitalize } of beer on the wall, #{ bottle_number } of beer.
       #{ bottle_number.action }, #{ next_bottle_number } of beer on the wall.
       VERSE
-
   end
-
 
   class BottleNumber
     attr_reader :number
 
     def self.for(number)
-      if number == 0
-        BottleNumber0.new(number)
-      elsif number == 1
-        BottleNumber1.new(number)
-      elsif number == 6
-        BottleNumber6.new(number)        
-      else
-        BottleNumber.new(number)
-      end
+	   	if number == 0
+	  		BottleNumber0.new(number)
+	  	elsif number == 1
+	  		BottleNumber1.new(number)
+	  	elsif number == 6
+	  		BottleNumber6.new(number)
+	  	else
+	  		BottleNumber.new(number)
+	  	end   	
     end
 
     def initialize(number)
@@ -40,69 +36,68 @@ class Bottles
     end
 
     def container
-      "bottles"
+        "bottles"
     end
 
     def pronoun
-      "one"
+    	"one"
     end
 
     def quantity
-      number.to_s
+        number.to_s
     end
 
     def action
-      "Take #{ pronoun } down and pass it around"
+        "Take #{ pronoun } down and pass it around"
     end
 
+    def successor
+    	#number - 1
+    	BottleNumber.for(number-1)
+    end
+    
     def to_s
-      "#{ quantity } #{ container }"
-    end
-
-    def successor
-      BottleNumber.for(number - 1)
+      "#{quantity} #{container}"
     end
   end
 
-  class BottleNumber0 < BottleNumber
 
+  class BottleNumber0 < BottleNumber 
     def successor
-      BottleNumber.for(99)
+    	BottleNumber.for(99)
+        #99
     end
 
     def quantity
-      "no more"
+    	"no more"
     end
 
     def action
-      "Go to the store and buy some more"
+        "Go to the store and buy some more"
     end
   end
+
 
   class BottleNumber1 < BottleNumber
-
     def container
-      "bottle"
+        "bottle"
     end
 
     def pronoun
-      "it"
+    	"it"
     end
   end
 
+
   class BottleNumber6 < BottleNumber
-
-    def to_s
-      "1 #{ container }"
-    end
-
     def container
-      "six pack"
+        "six pack"
     end
 
     def pronoun
-      "one"
+    	"it"
     end
   end
 
 end
+

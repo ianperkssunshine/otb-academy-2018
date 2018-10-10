@@ -373,4 +373,19 @@ Go to the store and buy some more, 99 bottles of beer on the wall.
     SONG
     expect( song.sing ).to eq(expected)
   end
+
+
+  it "can handle 1 six pack of beer" do
+    expected = <<-VERSES
+1 six pack of beer on the wall, 1 six pack of beer.
+Take one down and pass it around, 5 bottles of beer on the wall.
+
+5 bottles of beer on the wall, 5 bottles of beer.
+Take one down and pass it around, 4 bottles of beer on the wall.
+
+VERSES
+    expect( song.verses(6, 5) ).to eq( expected )
+  end
+
+
 end
